@@ -1,0 +1,48 @@
+﻿@page
+@model AplicatieFitness.Pages.Abonamente.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Abonamente Disponibile:</h1>
+
+<p>
+    <a asp-page="Create">Adaugă Abonament</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Abonament[0].Tip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Abonament[0].Pret)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Abonament[0].Descriere)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Abonament) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Tip)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Pret)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descriere)
+            </td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.AbonamentId">Editează</a> |
+                <a asp-page="./Details" asp-route-id="@item.AbonamentId">Vezi Detalii</a> |
+                <a asp-page="./Delete" asp-route-id="@item.AbonamentId">Șterge Abonament</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

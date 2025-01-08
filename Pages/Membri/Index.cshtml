@@ -1,0 +1,49 @@
+﻿@page
+@model AplicatieFitness.Pages.Membri.IndexModel
+
+@{
+    ViewData["Title"] = "Lista Membrilor";
+}
+
+<h1>Lista Membrilor</h1>
+
+<p>
+    <a asp-page="Create">Adaugă un membru nou</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Membru[0].Nume)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Membru[0].Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Membru[0].Role)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Membru)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nume)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Role)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.MembruId">Editează</a> |
+                    <a asp-page="./Details" asp-route-id="@item.MembruId">Vezi Detalii</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.MembruId">Șterge</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
