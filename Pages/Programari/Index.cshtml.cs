@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using AplicatieFitness.Data;
 using AplicatieFitness.Models;
@@ -17,13 +14,13 @@ namespace AplicatieFitness.Pages.Programari
             _context = context;
         }
 
-        public IList<Programare> Programare { get; set; } = default!;
+        public IList<Programare> Programare { get; set; }
 
         public async Task OnGetAsync()
         {
             Programare = await _context.Programare
-                .Include(p => p.Membru) 
-                .Include(p => p.Sesiune) 
+                .Include(p => p.Membru)
+                .Include(p => p.Sesiune)
                 .ToListAsync();
         }
     }

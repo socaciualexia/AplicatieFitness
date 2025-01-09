@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AplicatieFitness.Data;
@@ -16,16 +15,13 @@ namespace AplicatieFitness.Pages.Programari
             _context = context;
         }
 
-        public SelectList Membri { get; set; }
-        public SelectList Sesiuni { get; set; }
-
         [BindProperty]
-        public Programare Programare { get; set; } = default!;
+        public Programare Programare { get; set; }
 
         public IActionResult OnGet()
         {
-            Membri = new SelectList(_context.Membru, "MembruId", "Nume");
-            Sesiuni = new SelectList(_context.Sesiune, "SesiuneId", "Tip");
+            ViewData["MembruID"] = new SelectList(_context.Membru, "MembruId", "Nume");
+            ViewData["SesiuneID"] = new SelectList(_context.Sesiune, "SesiuneId", "Tip");
             return Page();
         }
 
@@ -33,19 +29,8 @@ namespace AplicatieFitness.Pages.Programari
         {
             if (!ModelState.IsValid)
             {
-                Membri = new SelectList(_context.Membru, "MembruId", "Nume");
-                Sesiuni = new SelectList(_context.Sesiune, "SesiuneId", "Tip");
-                return Page();
-            }
-
-            var membruExists = await _context.Membru.FindAsync(Programare.MembruId);
-            var sesiuneExists = await _context.Sesiune.FindAsync(Programare.SesiuneId);
-
-            if (membruExists == null || sesiuneExists == null)
-            {
-                ModelState.AddModelError("", "Membru sau sesiune invalide.");
-                Membri = new SelectList(_context.Membru, "MembruId", "Nume");
-                Sesiuni = new SelectList(_context.Sesiune, "SesiuneId", "Tip");
+                ViewData["MembruID"] = new SelectList(_context.Membru, "MembruId", "Nume");
+                ViewData["SesiuneID"] = new SelectList(_context.Sesiune, "SesiuneId", "Tip");
                 return Page();
             }
 

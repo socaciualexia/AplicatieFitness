@@ -1,47 +1,34 @@
 ﻿@page
 @model AplicatieFitness.Pages.Programari.IndexModel
 
-@{
-    ViewData["Title"] = "Lista Programărilor";
-}
-
-<h1>Lista Programărilor</h1>
+<h1>Lista Programări</h1>
 
 <p>
-    <a asp-page="Create" class="btn btn-primary">Adaugă Programare</a>
+    <a asp-page="./Create" class="btn btn-primary">Adaugă o Programare Nouă</a>
 </p>
-<table class="table table-striped">
+
+<table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Programare[0].DataProgramarii)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Programare[0].Membru.Nume)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Programare[0].Sesiune.Tip)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Programare[0].DataProgramare)</th>
+            <th>@Html.DisplayNameFor(model => model.Programare[0].Status)</th>
+            <th>@Html.DisplayNameFor(model => model.Programare[0].Membru.Nume)</th>
+            <th>@Html.DisplayNameFor(model => model.Programare[0].Sesiune.Tip)</th>
+            <th>Acțiuni</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model.Programare)
         {
             <tr>
+                <td>@Html.DisplayFor(modelItem => item.DataProgramare)</td>
+                <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                <td>@Html.DisplayFor(modelItem => item.Membru.Nume)</td>
+                <td>@Html.DisplayFor(modelItem => item.Sesiune.Tip)</td>
                 <td>
-                    @item.DataProgramarii.ToString("dd.MM.yyyy HH:mm")
-                </td>
-                <td>
-                    @item.Membru.Nume
-                </td>
-                <td>
-                    @item.Sesiune.Tip
-                </td>
-                <td>
-                    <a asp-page="./Edit" asp-route-id="@item.ProgramareId">Editează</a> |
-                    <a asp-page="./Details" asp-route-id="@item.ProgramareId">Vezi Detalii</a> |
-                    <a asp-page="./Delete" asp-route-id="@item.ProgramareId">Șterge</a>
+                    <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-warning btn-sm">Editează</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID" class="btn btn-info btn-sm">Detalii</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID" class="btn btn-danger btn-sm">Șterge</a>
                 </td>
             </tr>
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -12,18 +13,15 @@ namespace AplicatieFitness.Pages.Programari
 {
     public class EditModel : PageModel
     {
-        private readonly AplicatieFitnessContext _context;
+        private readonly AplicatieFitness.Data.AplicatieFitnessContext _context;
 
-        public EditModel(AplicatieFitnessContext context)
+        public EditModel(AplicatieFitness.Data.AplicatieFitnessContext context)
         {
             _context = context;
         }
 
         [BindProperty]
         public Programare Programare { get; set; } = default!;
-
-        public SelectList Membri { get; set; }
-        public SelectList Sesiuni { get; set; }
 
         public async Task<IActionResult> OnGetAsync(int? id)
         {
@@ -32,28 +30,23 @@ namespace AplicatieFitness.Pages.Programari
                 return NotFound();
             }
 
-            Programare = await _context.Programare
-                .Include(p => p.Membru)
-                .Include(p => p.Sesiune)
-                .FirstOrDefaultAsync(p => p.ProgramareId == id);
-
-            if (Programare == null)
+            var programare =  await _context.Programare.FirstOrDefaultAsync(m => m.ID == id);
+            if (programare == null)
             {
                 return NotFound();
             }
-
-            Membri = new SelectList(_context.Membru, "MembruId", "Nume", Programare.MembruId);
-            Sesiuni = new SelectList(_context.Sesiune, "SesiuneId", "Tip", Programare.SesiuneId);
-
+            Programare = programare;
+           ViewData["MembruID"] = new SelectList(_context.Membru, "MembruId", "MembruId");
+           ViewData["SesiuneID"] = new SelectList(_context.Sesiune, "SesiuneId", "Tip");
             return Page();
         }
 
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more information, see https://aka.ms/RazorPagesCRUD.
         public async Task<IActionResult> OnPostAsync()
         {
             if (!ModelState.IsValid)
             {
-                Membri = new SelectList(_context.Membru, "MembruId", "Nume", Programare.MembruId);
-                Sesiuni = new SelectList(_context.Sesiune, "SesiuneId", "Tip", Programare.SesiuneId);
                 return Page();
             }
 
@@ -65,7 +58,7 @@ namespace AplicatieFitness.Pages.Programari
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ProgramareExists(Programare.ProgramareId))
+                if (!ProgramareExists(Programare.ID))
                 {
                     return NotFound();
                 }
@@ -80,7 +73,7 @@ namespace AplicatieFitness.Pages.Programari
 
         private bool ProgramareExists(int id)
         {
-            return _context.Programare.Any(e => e.ProgramareId == id);
+            return _context.Programare.Any(e => e.ID == id);
         }
     }
 }

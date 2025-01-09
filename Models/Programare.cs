@@ -5,20 +5,23 @@ namespace AplicatieFitness.Models
 {
     public class Programare
     {
-        public int ProgramareId { get; set; }
+        public int ID { get; set; }
 
         [Required]
-        [Display(Name = "Membru")]
-        public int MembruId { get; set; }
+        public int MembruID { get; set; }
+
+        [Required]
+        public int SesiuneID { get; set; }
+
+        [Required]
+        [DataType(DataType.DateTime)]
+        public DateTime DataProgramare { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        public string Status { get; set; }
+
         public Membru Membru { get; set; }
-
-        [Required]
-        [Display(Name = "Sesiune")]
-        public int SesiuneId { get; set; }
         public Sesiune Sesiune { get; set; }
-
-        [Required]
-        [Display(Name = "Data Programării")]
-        public DateTime DataProgramarii { get; set; }
     }
 }

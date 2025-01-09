@@ -29,7 +29,7 @@ namespace AplicatieFitness.Pages.Programari
                 return NotFound();
             }
 
-            var programare = await _context.Programare.FirstOrDefaultAsync(m => m.ProgramareId == id);
+            var programare = await _context.Programare.FirstOrDefaultAsync(m => m.ID == id);
 
             if (programare == null)
             {

@@ -93,26 +93,31 @@ namespace AplicatieFitness.Migrations
 
             modelBuilder.Entity("AplicatieFitness.Models.Programare", b =>
                 {
-                    b.Property<int>("ProgramareId")
+                    b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProgramareId"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
 
-                    b.Property<DateTime>("DataProgramarii")
+                    b.Property<DateTime>("DataProgramare")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MembruId")
+                    b.Property<int>("MembruID")
                         .HasColumnType("int");
 
-                    b.Property<int>("SesiuneId")
+                    b.Property<int>("SesiuneID")
                         .HasColumnType("int");
 
-                    b.HasKey("ProgramareId");
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
-                    b.HasIndex("MembruId");
+                    b.HasKey("ID");
 
-                    b.HasIndex("SesiuneId");
+                    b.HasIndex("MembruID");
+
+                    b.HasIndex("SesiuneID");
 
                     b.ToTable("Programare");
                 });
@@ -147,13 +152,13 @@ namespace AplicatieFitness.Migrations
                 {
                     b.HasOne("AplicatieFitness.Models.Membru", "Membru")
                         .WithMany()
-                        .HasForeignKey("MembruId")
+                        .HasForeignKey("MembruID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("AplicatieFitness.Models.Sesiune", "Sesiune")
                         .WithMany()
-                        .HasForeignKey("SesiuneId")
+                        .HasForeignKey("SesiuneID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

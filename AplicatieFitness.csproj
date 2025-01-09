@@ -7,17 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\Programari\**" />
-    <Content Remove="Pages\Programari\**" />
-    <EmbeddedResource Remove="Pages\Programari\**" />
-    <None Remove="Pages\Programari\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Models\Programare.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.11" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.11">
       <PrivateAssets>all</PrivateAssets>

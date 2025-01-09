@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AplicatieFitness.Migrations
 {
     [DbContext(typeof(AplicatieFitnessContext))]
-    [Migration("20250109111249_AddProgramare")]
-    partial class AddProgramare
+    [Migration("20250109172949_ProgramareAdd")]
+    partial class ProgramareAdd
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -94,6 +94,37 @@ namespace AplicatieFitness.Migrations
                     b.ToTable("Membru");
                 });
 
+            modelBuilder.Entity("AplicatieFitness.Models.Programare", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ID"));
+
+                    b.Property<DateTime>("DataProgramare")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("MembruID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SesiuneID")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("MembruID");
+
+                    b.HasIndex("SesiuneID");
+
+                    b.ToTable("Programare");
+                });
+
             modelBuilder.Entity("AplicatieFitness.Models.Sesiune", b =>
                 {
                     b.Property<int>("SesiuneId")
@@ -118,6 +149,25 @@ namespace AplicatieFitness.Migrations
                     b.HasKey("SesiuneId");
 
                     b.ToTable("Sesiune");
+                });
+
+            modelBuilder.Entity("AplicatieFitness.Models.Programare", b =>
+                {
+                    b.HasOne("AplicatieFitness.Models.Membru", "Membru")
+                        .WithMany()
+                        .HasForeignKey("MembruID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("AplicatieFitness.Models.Sesiune", "Sesiune")
+                        .WithMany()
+                        .HasForeignKey("SesiuneID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Membru");
+
+                    b.Navigation("Sesiune");
                 });
 #pragma warning restore 612, 618
         }
