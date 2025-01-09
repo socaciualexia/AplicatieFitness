@@ -17,5 +17,6 @@ namespace AplicatieFitness.Data
         public DbSet<AplicatieFitness.Models.Membru> Membru { get; set; } = default!;
         public DbSet<AplicatieFitness.Models.Antrenor> Antrenor { get; set; } = default!;
         public DbSet<AplicatieFitness.Models.Abonament> Abonament { get; set; } = default!;
+        public DbSet<AplicatieFitness.Models.Sesiune> Sesiune { get; set; } = default!;
     }
 }

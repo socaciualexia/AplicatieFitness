@@ -1,0 +1,55 @@
+﻿@page
+@model AplicatieFitness.Pages.Sesiuni.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Lista Sesiunilor</h1>
+
+<p>
+    <a asp-page="Create">Adaugă Sesiune</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Sesiune[0].Tip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sesiune[0].AntrenorId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sesiune[0].MembruId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sesiune[0].DataOra)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Sesiune)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Tip)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AntrenorId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MembruId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DataOra)
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.SesiuneId">Editează</a> |
+                    <a asp-page="./Details" asp-route-id="@item.SesiuneId">Vezi Detalii</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.SesiuneId">Șterge Sesiune</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

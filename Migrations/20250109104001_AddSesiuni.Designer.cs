@@ -4,6 +4,7 @@ using AplicatieFitness.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AplicatieFitness.Migrations
 {
     [DbContext(typeof(AplicatieFitnessContext))]
-    partial class AplicatieFitnessContextModelSnapshot : ModelSnapshot
+    [Migration("20250109104001_AddSesiuni")]
+    partial class AddSesiuni
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -91,32 +94,6 @@ namespace AplicatieFitness.Migrations
                     b.ToTable("Membru");
                 });
 
-            modelBuilder.Entity("AplicatieFitness.Models.Programare", b =>
-                {
-                    b.Property<int>("ProgramareId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProgramareId"));
-
-                    b.Property<DateTime>("DataProgramarii")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("MembruId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SesiuneId")
-                        .HasColumnType("int");
-
-                    b.HasKey("ProgramareId");
-
-                    b.HasIndex("MembruId");
-
-                    b.HasIndex("SesiuneId");
-
-                    b.ToTable("Programare");
-                });
-
             modelBuilder.Entity("AplicatieFitness.Models.Sesiune", b =>
                 {
                     b.Property<int>("SesiuneId")
@@ -141,25 +118,6 @@ namespace AplicatieFitness.Migrations
                     b.HasKey("SesiuneId");
 
                     b.ToTable("Sesiune");
-                });
-
-            modelBuilder.Entity("AplicatieFitness.Models.Programare", b =>
-                {
-                    b.HasOne("AplicatieFitness.Models.Membru", "Membru")
-                        .WithMany()
-                        .HasForeignKey("MembruId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("AplicatieFitness.Models.Sesiune", "Sesiune")
-                        .WithMany()
-                        .HasForeignKey("SesiuneId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Membru");
-
-                    b.Navigation("Sesiune");
                 });
 #pragma warning restore 612, 618
         }

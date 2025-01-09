@@ -1,0 +1,49 @@
+﻿@page
+@model AplicatieFitness.Pages.Programari.IndexModel
+
+@{
+    ViewData["Title"] = "Lista Programărilor";
+}
+
+<h1>Lista Programărilor</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Adaugă Programare</a>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Programare[0].DataProgramarii)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Programare[0].Membru.Nume)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Programare[0].Sesiune.Tip)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Programare)
+        {
+            <tr>
+                <td>
+                    @item.DataProgramarii.ToString("dd.MM.yyyy HH:mm")
+                </td>
+                <td>
+                    @item.Membru.Nume
+                </td>
+                <td>
+                    @item.Sesiune.Tip
+                </td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ProgramareId">Editează</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ProgramareId">Vezi Detalii</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ProgramareId">Șterge</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

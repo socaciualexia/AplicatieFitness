@@ -1,0 +1,53 @@
+﻿@page
+@model AplicatieFitness.Pages.Programari.CreateModel
+
+@{
+    ViewData["Title"] = "Creare Programare";
+}
+
+<h1>Creare Programare</h1>
+
+<h4>Programare</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Programare.MembruId" class="control-label"></label>
+                <select asp-for="Programare.MembruId" class="form-control" asp-items="Model.Membri"></select>
+                <span asp-validation-for="Programare.MembruId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Programare.SesiuneId" class="control-label"></label>
+                <select asp-for="Programare.SesiuneId" class="form-control" asp-items="Model.Sesiuni"></select>
+                <span asp-validation-for="Programare.SesiuneId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <span class="text-danger">*</span>
+                <label asp-for="Programare.DataProgramarii" class="control-label"></label>
+                <input asp-for="Programare.DataProgramarii" class="form-control" type="datetime-local" />
+                <span asp-validation-for="Programare.DataProgramarii" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Creează Programare" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Înapoi la listă</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
